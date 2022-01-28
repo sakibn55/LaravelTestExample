@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/about', function(){
     return view('about');
@@ -25,3 +25,9 @@ Route::get('/about', function(){
 
 Route::get('/post/{id}',[PostController::class, 'show']);
 Route::get('/posts', [PostController::class, 'index']);
+Route::get('/create-post', [PostController::class, 'create'])->middleware('auth');
+Route::post('/store-post', [PostController::class, 'store']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

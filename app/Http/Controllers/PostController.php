@@ -22,4 +22,20 @@ class PostController extends Controller
         }
         return view('post')->withPost($post);
     }
+
+    public function create(){
+        return view('create-post');
+    }
+    public function store(Request $request){
+        $this->validate($request,[
+            'title'=>'required',
+            'body' => 'required',
+        ]);
+        $post = Post::create([
+            'title' =>$request->title,
+            'body' =>$request->body,
+        ]);
+
+        return redirect('/posts');
+    }
 }
